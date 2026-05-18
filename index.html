@@ -426,7 +426,7 @@
             // 3. Observa todos os elementos com a classe fade-up
             document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-            // Lógica da Tela de Carregamento (Checkout)
+          // Lógica da Tela de Carregamento (Checkout)
             document.querySelectorAll('a[href*="pay.kiwify.com.br"]').forEach(botao => {
                 botao.addEventListener('click', function(e) {
                     e.preventDefault(); // Impede o redirecionamento brusco
@@ -443,6 +443,17 @@
                     }, 1500);
                 });
             });
+            
+            // --- NOVA ENGRENAGEM: O Despertar do Cache ---
+            // Força a cortina negra a recuar caso o usuário volte pelo botão do celular/PC
+            window.addEventListener('pageshow', function(event) {
+                const overlay = document.getElementById('loading-overlay');
+                // Se a página for restaurada do cache e a tela de carregamento estiver visível, destrua-a.
+                if (overlay && !overlay.classList.contains('pointer-events-none')) {
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                }
+            });
+
         });
     </script>
 </body>
